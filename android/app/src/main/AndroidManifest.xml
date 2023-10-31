@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.groceryapp">
+    package="com.firebase.groceryapp">
    <application
         android:label="groceryapp"
         android:name="${applicationName}"
