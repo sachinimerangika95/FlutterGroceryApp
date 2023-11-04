@@ -64,19 +64,23 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 0),
-          child: Icon(
-            Icons.person,
-            color: Colors.grey[700],
-          ),
-        ),
-        title: Text(
-          user?.email ?? '',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[700],
-          ),
+        title: Row(
+          children: <Widget>[
+            const Icon(
+              Icons.person,
+              color: Colors.grey,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: Text(
+                user?.email ?? '',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ],
         ),
         centerTitle: false,
         actions: [
@@ -167,26 +171,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const SizedBox(height: 8),
-
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: Divider(),
-          ),
-
-          const SizedBox(height: 24),
-
-          // categories -> horizontal listview
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Text(
-              "Fresh Items",
-              style: GoogleFonts.notoSerif(
-                //fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-          ),
+          const SizedBox(height: 20),
 
           // recent orders -> show last 3
           Expanded(
@@ -194,7 +179,7 @@ class _HomePageState extends State<HomePage> {
               builder: (context, value, child) {
                 print(value.shopItems);
                 return GridView.builder(
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(10),
                   itemCount: value.shopItems.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,

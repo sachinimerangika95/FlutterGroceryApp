@@ -29,7 +29,7 @@ class CartPage extends StatelessWidget {
                 child: Text(
                   "My Cart",
                   style: GoogleFonts.notoSerif(
-                    fontSize: 36,
+                    fontSize: 34,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -38,13 +38,13 @@ class CartPage extends StatelessWidget {
               // list view of cart
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
                     itemCount: value.cartItems.length,
-                    padding: EdgeInsets.all(12),
+                    padding: EdgeInsets.all(8),
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.grey[200],
@@ -94,7 +94,7 @@ class CartPage extends StatelessWidget {
               // total amount + pay now
 
               Padding(
-                padding: const EdgeInsets.all(36.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
