@@ -168,9 +168,9 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: Consumer<CartModel>(
               builder: (context, value, child) {
+                print(value.shopItems);
                 return GridView.builder(
                   padding: const EdgeInsets.all(12),
-                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: value.shopItems.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -178,10 +178,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                   itemBuilder: (context, index) {
                     return GroceryItemTile(
-                      itemName: value.shopItems[index][0],
-                      itemPrice: value.shopItems[index][1],
-                      imagePath: value.shopItems[index][2],
-                      color: value.shopItems[index][3],
+                      itemName: value.shopItems[index].name,
+                      itemPrice: value.shopItems[index].price,
+                      imagePath: value.shopItems[index].image,
+                      color: Colors.green,
+                      // color: value.shopItems[index][3],
                       onPressed: () =>
                           Provider.of<CartModel>(context, listen: false)
                               .addItemToCart(index),

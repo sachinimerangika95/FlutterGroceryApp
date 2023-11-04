@@ -19,6 +19,7 @@ class CartPage extends StatelessWidget {
       ),
       body: Consumer<CartModel>(
         builder: (context, value, child) {
+          print(value.cartItems);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -50,15 +51,15 @@ class CartPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8)),
                           child: ListTile(
                             leading: Image.asset(
-                              value.cartItems[index][2],
+                              value.cartItems[index].image,
                               height: 36,
                             ),
                             title: Text(
-                              value.cartItems[index][0],
+                              value.cartItems[index].name,
                               style: const TextStyle(fontSize: 18),
                             ),
                             subtitle: Text(
-                              '\$' + value.cartItems[index][1],
+                              '\$' + value.cartItems[index].price,
                               style: const TextStyle(fontSize: 12),
                             ),
                             trailing: IconButton(
