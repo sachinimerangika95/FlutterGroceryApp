@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:groceryapp/auth.dart';
+import 'package:groceryapp/pages/auth/sign_up.dart';
 import 'package:provider/provider.dart';
+
 import '../components/grocery_item_tile.dart';
 import '../model/cart_model.dart';
 import 'cart_page.dart';
@@ -13,6 +17,47 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final User? user = Auth().currentUser;
+
+  Future<void> signOut() async {
+    await Auth().signOut().then((value) => {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return LoginPage();
+              },
+            ),
+          )
+        });
+  }
+
+  Widget _logOutButton() {
+    return GestureDetector(
+        onTap: signOut,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 24.0),
+          child: Row(
+            children: <Widget>[
+              const Icon(
+                Icons.logout,
+                color: Colors.grey,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: Text(
+                  'Logout',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey[700],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +72,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         title: Text(
-          'Sydney, Australia',
+          user?.email ?? 'User email',
           style: TextStyle(
             fontSize: 16,
             color: Colors.grey[700],
@@ -35,20 +80,30 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: false,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 24.0),
-            child: Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.person,
-                color: Colors.grey,
-              ),
-            ),
-          ),
+          user?.email != null
+              ? GestureDetector(
+                  child: _logOutButton(),
+                )
+              : GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return LoginPage();
+                      },
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 24.0),
+                    child: Container(
+                      padding: EdgeInsets.all(16),
+                      child: const Icon(
+                        Icons.person,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                )
         ],
       ),
       floatingActionButton: FloatingActionButton(

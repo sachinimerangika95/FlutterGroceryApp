@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:groceryapp/auth.dart';
+import 'package:groceryapp/pages/intro_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -20,6 +21,14 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await Auth().signInWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return IntroScreen();
+          },
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage:
@@ -32,6 +41,14 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await Auth().createUserWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return IntroScreen();
+          },
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage:
