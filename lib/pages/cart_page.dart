@@ -59,14 +59,29 @@ class CartPage extends StatelessWidget {
                               style: const TextStyle(fontSize: 18),
                             ),
                             subtitle: Text(
-                              '\$' + value.cartItems[index].price,
+                              '\$' + value.cartItems[index].price.toString(),
                               style: const TextStyle(fontSize: 12),
                             ),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.cancel),
-                              onPressed: () =>
-                                  Provider.of<CartModel>(context, listen: false)
-                                      .removeItemFromCart(index),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                IconButton(
+                                  icon: const Icon(Icons.remove),
+                                  onPressed: () => Provider.of<CartModel>(
+                                          context,
+                                          listen: false)
+                                      .decreaseQuantity(index),
+                                ),
+                                Text(
+                                    value.cartItems[index].quantity.toString()),
+                                IconButton(
+                                  icon: const Icon(Icons.add),
+                                  onPressed: () => Provider.of<CartModel>(
+                                          context,
+                                          listen: false)
+                                      .increaseQuantity(index),
+                                ),
+                              ],
                             ),
                           ),
                         ),

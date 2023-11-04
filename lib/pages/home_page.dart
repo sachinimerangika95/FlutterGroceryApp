@@ -65,14 +65,14 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 24.0),
+          padding: const EdgeInsets.only(left: 0),
           child: Icon(
-            Icons.location_on,
+            Icons.person,
             color: Colors.grey[700],
           ),
         ),
         title: Text(
-          user?.email ?? 'User email',
+          user?.email ?? '',
           style: TextStyle(
             fontSize: 16,
             color: Colors.grey[700],
@@ -94,9 +94,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 24.0),
+                    padding: const EdgeInsets.only(right: 2.0),
                     child: Container(
-                      padding: EdgeInsets.all(16),
                       child: const Icon(
                         Icons.person,
                         color: Colors.grey,
@@ -106,22 +105,47 @@ class _HomePageState extends State<HomePage> {
                 )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return CartPage();
-            },
+      floatingActionButton: Container(
+        height: 70.0,
+        width: 70.0,
+        child: FittedBox(
+          child: FloatingActionButton(
+            backgroundColor: Colors.black,
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return CartPage();
+                },
+              ),
+            ),
+            child: const Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                Icon(Icons.shopping_bag,
+                    size: 35.0), // increase the size as needed
+                Positioned(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 11.0),
+                    child: Text(
+                      '5', // replace with your quantity variable
+                      style: TextStyle(
+                        fontSize: 12.0, // increase the size as needed
+                        fontWeight: FontWeight.w900,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-        child: const Icon(Icons.shopping_bag),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 48),
+          const SizedBox(height: 15),
 
           // good morning bro
           const Padding(
@@ -129,7 +153,7 @@ class _HomePageState extends State<HomePage> {
             child: Text('Good morning,'),
           ),
 
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
 
           // Let's order fresh items for you
           Padding(
@@ -143,7 +167,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: 8),
 
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),

@@ -5,12 +5,14 @@ class ProductModel {
   final String name;
   final String price;
   final String image;
+  int quantity;
 
-  const ProductModel({
+  ProductModel({
     this.id,
     required this.name,
     required this.price,
     required this.image,
+    this.quantity = 1,
   });
 
   factory ProductModel.fromSnapshot(
@@ -20,6 +22,7 @@ class ProductModel {
         id: document.id,
         name: data?['name'],
         price: data?['price'],
-        image: data?['image']);
+        image: data?['image'],
+        quantity: 1);
   }
 }

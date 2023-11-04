@@ -30,15 +30,21 @@ class CartModel extends ChangeNotifier {
 
   void initializeProducts() async {
     _shopItems = await getProducts();
-    print(
-      '_shopItems $_shopItems',
-    );
     notifyListeners();
   }
 
   // add item to cart
   void addItemToCart(int index) {
-    _cartItems.add(_shopItems[index]);
+    var item = _shopItems[index];
+    var cartItem = _cartItems.firstWhere((element) => element.id == item.id,
+        orElse: () => ProductModel(name: '', price: '', image: ''));
+
+    if (cartItem.id != null) {
+      cartItem.quantity++;
+    } else {
+      _cartItems.add(item);
+    }
+
     notifyListeners();
   }
 
@@ -48,11 +54,25 @@ class CartModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void decreaseQuantity(int index) {
+    if (_cartItems[index].quantity > 1) {
+      _cartItems[index].quantity--;
+      notifyListeners();
+    } else {
+      removeItemFromCart(index);
+    }
+  }
+
+  void increaseQuantity(int index) {
+    _cartItems[index].quantity++;
+    notifyListeners();
+  }
+
   // calculate total price
   String calculateTotal() {
     double totalPrice = 0;
     for (int i = 0; i < cartItems.length; i++) {
-      totalPrice += double.parse(cartItems[i].price);
+      totalPrice += double.parse(cartItems[i].price) * cartItems[i].quantity;
     }
     return totalPrice.toStringAsFixed(2);
   }
@@ -61,12 +81,13 @@ class CartModel extends ChangeNotifier {
     final snapshot = await _db.collection('products').get();
     return snapshot.docs.map((doc) {
       return ProductModel(
-        id: doc.id,
-        name: doc.get('name'),
-        price: doc.get('price'),
-        image: doc.get('image'),
-        // Add more fields as per your document structure
-      );
+          id: doc.id,
+          name: doc.get('name'),
+          price: doc.get('price'),
+          image: doc.get('image'),
+          quantity: 1
+          // Add more fields as per your document structure
+          );
     }).toList();
   }
 }
