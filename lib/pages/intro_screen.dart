@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:groceryapp/auth.dart';
-import 'package:groceryapp/pages/auth/sign_up.dart';
 import 'package:groceryapp/pages/onboarding.dart';
+import 'package:groceryapp/pages/sign_in_new.dart';
 
 class IntroScreen extends StatelessWidget {
   IntroScreen({super.key});
@@ -59,7 +59,7 @@ class IntroScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return user?.email != null ? Onboarding() : LoginPage();
+                    return user?.email != null ? Onboarding() : SignInScreen();
                   },
                 ),
               ),

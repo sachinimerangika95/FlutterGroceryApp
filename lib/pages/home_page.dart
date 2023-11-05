@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:groceryapp/auth.dart';
-import 'package:groceryapp/pages/auth/sign_up.dart';
+import 'package:groceryapp/pages/sign_in_new.dart';
 import 'package:provider/provider.dart';
 
 import '../components/grocery_item_tile.dart';
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return LoginPage();
+                return SignInScreen();
               },
             ),
           )
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return LoginPage();
+                        return SignInScreen();
                       },
                     ),
                   ),

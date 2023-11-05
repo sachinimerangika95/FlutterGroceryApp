@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceryapp/auth.dart';
-import 'package:groceryapp/pages/auth/sign_up.dart';
 import 'package:groceryapp/pages/intro_screen.dart';
+import 'package:groceryapp/pages/sign_in_new.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _WidgetTreeState extends State<WidgetTree> {
           if (snapshot.hasData) {
             return IntroScreen();
           } else {
-            return const LoginPage();
+            return const SignInScreen();
           }
         });
   }
