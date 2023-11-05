@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:groceryapp/auth.dart';
+import 'package:groceryapp/pages/orders.dart';
 import 'package:groceryapp/pages/sign_in_new.dart';
 import 'package:provider/provider.dart';
 
@@ -32,32 +33,6 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
-  Widget _logOutButton() {
-    return GestureDetector(
-        onTap: signOut,
-        child: Padding(
-          padding: const EdgeInsets.only(right: 24.0),
-          child: Row(
-            children: <Widget>[
-              const Icon(
-                Icons.logout,
-                color: Colors.grey,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 4),
-                child: Text(
-                  'Logout',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey[700],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,31 +59,81 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         centerTitle: false,
-        actions: [
-          user?.email != null
-              ? GestureDetector(
-                  child: _logOutButton(),
-                )
-              : GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return SignInScreen();
-                      },
-                    ),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            icon: Icon(Icons.menu, color: Colors.green),
+            onSelected: (String result) {
+              // handle your menu item click here
+              if (result == 'orders') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return OrdersList();
+                    },
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 2.0),
-                    child: Container(
-                      child: const Icon(
-                        Icons.person,
+                );
+              } else if (result == 'logout') {
+                signOut();
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'orders',
+                child: Text('My Orders'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'logout',
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 24.0),
+                  child: Row(
+                    children: <Widget>[
+                      const Icon(
+                        Icons.logout,
                         color: Colors.grey,
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4),
+                        child: Text(
+                          'Logout',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black38,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                )
+                ),
+              ),
+            ],
+          ),
         ],
+        // actions: [
+        //   user?.email != null
+        //       ? GestureDetector(
+        //           child: _logOutButton(),
+        //         )
+        //       : GestureDetector(
+        //           onTap: () => Navigator.push(
+        //             context,
+        //             MaterialPageRoute(
+        //               builder: (context) {
+        //                 return SignInScreen();
+        //               },
+        //             ),
+        //           ),
+        //           child: Padding(
+        //             padding: const EdgeInsets.only(right: 2.0),
+        //             child: Container(
+        //               child: const Icon(
+        //                 Icons.person,
+        //                 color: Colors.grey,
+        //               ),
+        //             ),
+        //           ),
+        //         )
+        // ],
       ),
       floatingActionButton: Container(
         height: 70.0,

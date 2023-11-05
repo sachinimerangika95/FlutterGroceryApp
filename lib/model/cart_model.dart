@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:groceryapp/model/order_model.dart';
 import 'package:groceryapp/model/product_model.dart';
 
 class CartModel extends ChangeNotifier {
@@ -19,17 +20,26 @@ class CartModel extends ChangeNotifier {
   // list of cart items
   List<ProductModel> _cartItems = [];
 
+  List<OrderModel> _orders = [];
+
   CartModel() {
-    print('CartModel constructor');
     initializeProducts();
+    initializeOrders();
   }
 
   get cartItems => _cartItems;
 
   get shopItems => _shopItems;
 
+  get orders => _orders;
+
   void initializeProducts() async {
     _shopItems = await getProducts();
+    notifyListeners();
+  }
+
+  void initializeOrders() async {
+    _orders = await getOrders();
     notifyListeners();
   }
 
@@ -38,7 +48,6 @@ class CartModel extends ChangeNotifier {
     var item = _shopItems[index];
     var cartItem = _cartItems.firstWhere((element) => element.id == item.id,
         orElse: () => ProductModel(name: '', price: '', image: ''));
-    print(cartItem);
     if (cartItem.id != null) {
       cartItem.quantity++;
     } else {
@@ -70,6 +79,7 @@ class CartModel extends ChangeNotifier {
 
   void clearCart() {
     _cartItems.clear();
+    initializeOrders();
     notifyListeners();
   }
 
@@ -91,6 +101,19 @@ class CartModel extends ChangeNotifier {
           price: doc.get('price'),
           image: doc.get('image'),
           quantity: 1
+          // Add more fields as per your document structure
+          );
+    }).toList();
+  }
+
+  Future<List<OrderModel>> getOrders() async {
+    final snapshot = await _db.collection('orders').get();
+    return snapshot.docs.map((doc) {
+      return OrderModel(
+          id: doc.id,
+          total: doc.get('total'),
+          userId: doc.get('userId'),
+          products: doc.get('products')
           // Add more fields as per your document structure
           );
     }).toList();

@@ -154,7 +154,7 @@ class CartPage extends StatelessWidget {
                             child: const Row(
                               children: [
                                 Text(
-                                  'Pay Now',
+                                  'Place Order',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Icon(
