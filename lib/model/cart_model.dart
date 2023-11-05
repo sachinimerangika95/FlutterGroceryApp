@@ -38,7 +38,7 @@ class CartModel extends ChangeNotifier {
     var item = _shopItems[index];
     var cartItem = _cartItems.firstWhere((element) => element.id == item.id,
         orElse: () => ProductModel(name: '', price: '', image: ''));
-
+    print(cartItem);
     if (cartItem.id != null) {
       cartItem.quantity++;
     } else {
@@ -68,6 +68,11 @@ class CartModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearCart() {
+    _cartItems.clear();
+    notifyListeners();
+  }
+
   // calculate total price
   String calculateTotal() {
     double totalPrice = 0;
@@ -89,5 +94,34 @@ class CartModel extends ChangeNotifier {
           // Add more fields as per your document structure
           );
     }).toList();
+  }
+
+  Future<void> createOrder(String? uid) async {
+    CollectionReference orders =
+        FirebaseFirestore.instance.collection('orders');
+    List<Map<String, dynamic>> productMaps =
+        cartItems.map<Map<String, dynamic>>((product) {
+      return {
+        'id': product.id,
+        'name': product.name,
+        'price': product.price,
+        'image': product.image,
+        'quantity': product.quantity,
+      };
+    }).toList();
+
+    if (productMaps.isNotEmpty && uid != null) {
+      // Create a new document reference with an auto-generated ID
+      DocumentReference docRef = orders.doc();
+      return docRef
+          .set({
+            'id': docRef.id, // Use the auto-generated ID
+            'userId': uid,
+            'total': calculateTotal(),
+            'products': productMaps,
+          })
+          .then((value) => clearCart())
+          .catchError((error) => print("Failed to add order: $error"));
+    }
   }
 }

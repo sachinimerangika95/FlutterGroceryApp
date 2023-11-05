@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leadingWidth: 1,
         title: Row(
           children: <Widget>[
             const Icon(
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.grey,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 4),
+              padding: const EdgeInsets.only(left: 8),
               child: Text(
                 user?.email ?? '',
                 style: TextStyle(
@@ -114,36 +115,39 @@ class _HomePageState extends State<HomePage> {
         width: 70.0,
         child: FittedBox(
           child: FloatingActionButton(
-            backgroundColor: Colors.black,
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return CartPage();
-                },
-              ),
-            ),
-            child: const Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Icon(Icons.shopping_bag,
-                    size: 35.0), // increase the size as needed
-                Positioned(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 11.0),
-                    child: Text(
-                      '5', // replace with your quantity variable
-                      style: TextStyle(
-                        fontSize: 12.0, // increase the size as needed
-                        fontWeight: FontWeight.w900,
-                        color: Colors.green,
-                      ),
+              backgroundColor: Colors.black,
+              onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return CartPage();
+                      },
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
+              child: Consumer<CartModel>(builder: (context, value, child) {
+                return Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    const Icon(Icons.shopping_bag,
+                        size: 35.0), // increase the size as needed
+                    Positioned(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 11.0),
+                        child: Text(
+                          value.cartItems.length > 0
+                              ? value.cartItems.length.toString()
+                              : '', // replace with your quantity variable
+                          style: const TextStyle(
+                            fontSize: 12.0, // increase the size as needed
+                            fontWeight: FontWeight.w900,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              })),
         ),
       ),
       body: Column(
@@ -177,7 +181,6 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: Consumer<CartModel>(
               builder: (context, value, child) {
-                print(value.shopItems);
                 return GridView.builder(
                   padding: const EdgeInsets.all(10),
                   itemCount: value.shopItems.length,

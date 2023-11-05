@@ -25,4 +25,20 @@ class ProductModel {
         image: data?['image'],
         quantity: 1);
   }
+
+  // Convert a Product into a Map
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'price': price,
+      'image': image,
+      'quantity': quantity,
+    };
+  }
+
+  @override
+  String toString() {
+    return 'Product{id: $id, name: $name, price: $price, image: $image, quantity: $quantity}';
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:groceryapp/model/cart_model.dart';
-import 'package:groceryapp/widget_tree.dart';
+import 'package:groceryapp/pages/intro_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       create: (context) => CartModel(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: WidgetTree(),
+        home: IntroScreen(),
       ),
     );
   }

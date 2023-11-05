@@ -1,11 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:groceryapp/auth.dart';
+import 'package:groceryapp/pages/home_page.dart';
 import 'package:provider/provider.dart';
 
 import '../model/cart_model.dart';
 
 class CartPage extends StatelessWidget {
-  const CartPage({super.key});
+  CartPage({super.key});
+
+  final User? user = Auth().currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,6 @@ class CartPage extends StatelessWidget {
       ),
       body: Consumer<CartModel>(
         builder: (context, value, child) {
-          print(value.cartItems);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -127,25 +131,40 @@ class CartPage extends StatelessWidget {
 
                       // pay now
                       Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.green.shade200),
-                          borderRadius: BorderRadius.circular(28),
-                        ),
-                        padding: const EdgeInsets.all(12),
-                        child: Row(
-                          children: const [
-                            Text(
-                              'Pay Now',
-                              style: TextStyle(color: Colors.white),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.green.shade200),
+                            borderRadius: BorderRadius.circular(28),
+                          ),
+                          padding: const EdgeInsets.all(12),
+                          child: GestureDetector(
+                            onTap: () {
+                              Provider.of<CartModel>(context, listen: false)
+                                  .createOrder(user?.uid)
+                                  .then((value) => {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) {
+                                              return const HomePage();
+                                            },
+                                          ),
+                                        )
+                                      });
+                            },
+                            child: const Row(
+                              children: [
+                                Text(
+                                  'Pay Now',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16,
+                                  color: Colors.white,
+                                ),
+                              ],
                             ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 16,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ),
+                          )),
                     ],
                   ),
                 ),

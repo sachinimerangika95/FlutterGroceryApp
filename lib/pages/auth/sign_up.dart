@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:groceryapp/auth.dart';
-import 'package:groceryapp/pages/intro_screen.dart';
+import 'package:groceryapp/pages/onboarding.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return IntroScreen();
+            return Onboarding();
           },
         ),
       );
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return IntroScreen();
+            return Onboarding();
           },
         ),
       );
@@ -58,7 +58,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _title() {
-    return const Text('Firebase Auth');
+    return const Text(
+      'Grocery App',
+      style: TextStyle(
+        color: Colors.black87,
+      ),
+    );
   }
 
   Widget _entryField(String title, TextEditingController controller) {
@@ -92,7 +97,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: _title(),
+        iconTheme: IconThemeData(
+          color: Colors.grey[800],
+        ),
       ),
       body: Container(
           height: double.infinity,
