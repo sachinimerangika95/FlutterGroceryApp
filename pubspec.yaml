@@ -66,6 +66,7 @@ flutter:
   assets:
     - lib/images/
     - lib/images/onboarding/
+    - lib/images/products/
 
   #   - images/a_dot_ham.jpeg
 

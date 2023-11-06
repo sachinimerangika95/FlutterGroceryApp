@@ -9,6 +9,7 @@ class OrderConfirmationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
           child: Column(
@@ -28,6 +29,10 @@ class OrderConfirmationPage extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      Colors.deepOrange, // Set the background color here
+                ),
                 child: Text('Continue Shopping'),
                 onPressed: () {
                   // Navigate back to home page

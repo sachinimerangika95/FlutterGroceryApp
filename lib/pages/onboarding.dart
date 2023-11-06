@@ -31,6 +31,7 @@ class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: contentsList[currentIndex].backgroundColor,
       body: SafeArea(
         child: Column(
@@ -131,16 +132,6 @@ class _OnboardingState extends State<Onboarding> {
                             (index) => buildDot(index, context),
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        CupertinoButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Skip",
-                            style: TextStyle(
-                              color: Colors.white70,
-                            ),
-                          ),
-                        )
                       ],
                     ),
                     CupertinoButton(
@@ -148,7 +139,7 @@ class _OnboardingState extends State<Onboarding> {
                       onPressed: () {
                         if (currentIndex == contentsList.length - 1) {
                           // Go to next page...
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HomePage()));

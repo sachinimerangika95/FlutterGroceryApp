@@ -20,28 +20,28 @@ class IntroScreen extends StatelessWidget {
             // big logo
             Padding(
               padding: const EdgeInsets.only(
-                left: 100.0,
-                right: 100.0,
+                left: 75.0,
+                right: 75.0,
                 top: 120,
-                bottom: 20,
+                bottom: 10,
               ),
-              child: Image.asset('lib/images/avocado.png'),
+              child: Image.asset('lib/images/intro.png'),
             ),
 
             // we deliver groceries at your doorstep
             Padding(
               padding: const EdgeInsets.all(28.0),
               child: Text(
-                'We deliver groceries at your doorstep',
+                'We deliver exercise equipments to your doorstep',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.notoSerif(
-                    fontSize: 36, fontWeight: FontWeight.bold),
+                    fontSize: 32, fontWeight: FontWeight.bold),
               ),
             ),
 
             // groceree gives you fresh vegetables and fruits
             Text(
-              'Fresh items everyday',
+              'Revolutionize Your Fitness Journey',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -49,9 +49,7 @@ class IntroScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 24),
-
-            const Spacer(),
+            const SizedBox(height: 30),
 
             // get started button
             GestureDetector(
@@ -67,7 +65,7 @@ class IntroScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: const Color.fromARGB(255, 112, 91, 222),
+                  color: Colors.deepOrange,
                 ),
                 child: const Text(
                   "Get Started",

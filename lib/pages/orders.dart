@@ -45,6 +45,7 @@ class OrdersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -116,9 +117,11 @@ class MyHomePage extends StatelessWidget {
             color: Colors.black54, // Change this to your desired color
           ),
         ),
-        automaticallyImplyLeading: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(
+          color: Colors.grey[800],
+        ),
       ),
       body: Consumer<CartModel>(
         builder: (context, value, child) {

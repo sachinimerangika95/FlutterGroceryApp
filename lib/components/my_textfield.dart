@@ -21,8 +21,9 @@ class MytextField extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-            labelText: labelText ,
+            labelText: labelText,
             hintText: hintText,
+            labelStyle: TextStyle(color: Colors.deepOrange),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 42, vertical: 20),

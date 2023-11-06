@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: false,
         actions: <Widget>[
           PopupMenuButton<String>(
-            icon: Icon(Icons.menu, color: Colors.green),
+            icon: Icon(Icons.menu, color: Colors.deepOrange.shade600),
             onSelected: (String result) {
               // handle your menu item click here
               if (result == 'orders') {
@@ -163,10 +163,9 @@ class _HomePageState extends State<HomePage> {
                               ? value.cartItems.length.toString()
                               : '', // replace with your quantity variable
                           style: const TextStyle(
-                            fontSize: 12.0, // increase the size as needed
-                            fontWeight: FontWeight.w900,
-                            color: Colors.green,
-                          ),
+                              fontSize: 12.0, // increase the size as needed
+                              fontWeight: FontWeight.w900,
+                              color: Colors.deepOrange),
                         ),
                       ),
                     ),
@@ -192,9 +191,9 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Text(
-              "Let's order fresh items for you",
+              "Let's order exercise equipments for you",
               style: GoogleFonts.notoSerif(
-                fontSize: 36,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -218,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                       itemName: value.shopItems[index].name,
                       itemPrice: value.shopItems[index].price,
                       imagePath: value.shopItems[index].image,
-                      color: Colors.green,
+                      color: Colors.deepOrange.shade50,
                       // color: value.shopItems[index][3],
                       onPressed: () =>
                           Provider.of<CartModel>(context, listen: false)

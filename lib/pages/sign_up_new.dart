@@ -63,6 +63,7 @@ class _SignUpState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
         child: Form(
@@ -96,7 +97,7 @@ class _SignUpState extends State<SignUpScreen> {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             MytextField(
               controller: nameController,
@@ -161,9 +162,6 @@ class _SignUpState extends State<SignUpScreen> {
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 20,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
